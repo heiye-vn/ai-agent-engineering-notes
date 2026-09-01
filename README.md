@@ -7,22 +7,23 @@
 ## 章节内容 (Chapters)
 
 ### [Chapter 01: 把模型变成能力](./chapter01/)
+
 - **描述**：聚焦大模型从“自由对话”到“工程能力”的转化。核心围绕五层受约束调用架构（system/task/context/format/post-process），实现严格的 JSON 结构化输出、TypeScript 运行时类型守卫（Type Guard）与容错重试闭环机制，将不确定的模型响应收束为稳定、可消费、可复用的软件模块。
 
 ### Chapter 02: 函数与工具调用 (Tool / Function Calling)
-- **状态**：规划中
+
 - **描述**：探索工具定义契约、参数抽取与校验、执行环境沙箱化及工具链自动编排。
 
 ### Chapter 03: 上下文与记忆机制 (Memory & Context)
-- **状态**：规划中
+
 - **描述**：探索短期对话窗口管理、长期向量检索记忆与上下文压缩摘要策略。
 
 ### Chapter 04: 智能体规划与反思 (Planning & Reflection)
-- **状态**：规划中
+
 - **描述**：探索 ReAct 范式、Plan-and-Solve、自我反思纠错与状态机流程控制。
 
 ### Chapter 05: 多智能体协同 (Multi-Agent Workflows)
-- **状态**：规划中
+
 - **描述**：探索角色分工、Agent Handoff、层级协作网络与多 Agent 冲突消解机制。
 
 ---
