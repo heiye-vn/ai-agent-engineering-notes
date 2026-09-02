@@ -4,15 +4,26 @@
 
 ---
 
+## 仓库定位与关联
+
+本仓库是「能力探索的演练场」，与产品工程「[autix](https://github.com/heiye-vn/autix)」分工明确：
+
+| 仓库 | 定位 | 形态 | 依赖方式 |
+|------|------|------|---------|
+| **ai-agent-playground** | 练习场 | 平铺的独立小项目（chapter01/02/...），各自 `pnpm install` 独立运行 | 无 |
+| **autix** | 产品工程 | pnpm workspace monorepo（clients / services / packages） | 独立 git 仓库 ([heiye-vn/autix](https://github.com/heiye-vn/autix)) |
+
+规则：**「怎么把某个 Agent 能力跑通」的探索放 playground；「能力如何落地为可持续演进的产品骨架」放 autix。** 详见 [chapter02/note.md](./chapter02/note.md)。
+
 ## 章节内容 (Chapters)
 
 ### [Chapter 01: 把模型变成能力](./chapter01/)
 
 - **描述**：聚焦大模型从“自由对话”到“工程能力”的转化。核心围绕五层受约束调用架构（system/task/context/format/post-process），实现严格的 JSON 结构化输出、TypeScript 运行时类型守卫（Type Guard）与容错重试闭环机制，将不确定的模型响应收束为稳定、可消费、可复用的软件模块。
 
-### Chapter 02: 函数与工具调用 (Tool / Function Calling)
+### Chapter 02: 工程底座（独立仓库 → [heiye-vn/autix](https://github.com/heiye-vn/autix)）
 
-- **描述**：探索工具定义契约、参数抽取与校验、执行环境沙箱化及工具链自动编排。
+- **描述**：用 pnpm workspaces + Turbo 搭建可扩展的 monorepo（clients / services / packages），跑通 Web ↔ Chat 服务 ↔ 共享包 ↔ Compose 的最小闭环。因其属于「产品工程」而非「能力练习」，已独立为专有开源项目仓库 [heiye-vn/autix](https://github.com/heiye-vn/autix) 持续演进，本目录保留完整设计笔记与落地思考 [note.md](./chapter02/note.md)。
 
 ### Chapter 03: 上下文与记忆机制 (Memory & Context)
 
