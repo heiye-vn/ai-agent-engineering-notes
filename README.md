@@ -1,92 +1,57 @@
-# AI Agent Playground (智能体工程实战演练场)
+# AI Agent Engineering Notes (智能体工程实战学习与复盘笔记)
 
-> 本仓库用于系统化探索与实践 **AI Agent（人工智能体）** 的核心工程架构与演进路径。从底层的模型调用、受约束结构化输出，逐步演进到工具调用 (Tool Calling)、任务编排 (Orchestration)、检索增强生成 (RAG) 以及多智能体协同 (Multi-Agent System)。
-
----
-
-## 仓库定位与关联
-
-本仓库是「能力探索的演练场」，与产品工程「[autix](https://github.com/heiye-vn/autix)」分工明确：
-
-| 仓库 | 定位 | 形态 | 依赖方式 |
-|------|------|------|---------|
-| **ai-agent-playground** | 练习场 | 平铺的独立小项目（chapter01/02/...），各自 `pnpm install` 独立运行 | 无 |
-| **autix** | 产品工程 | pnpm workspace monorepo（clients / services / packages） | 独立 git 仓库 ([heiye-vn/autix](https://github.com/heiye-vn/autix)) |
-
-规则：**「怎么把某个 Agent 能力跑通」的探索放 playground；「能力如何落地为可持续演进的产品骨架」放 autix。** 详见 [chapter02/note.md](./chapter02/note.md)。
-
-## 章节内容 (Chapters)
-
-### [Chapter 01: 把模型变成能力](./chapter01/)
-
-- **描述**：聚焦大模型从“自由对话”到“工程能力”的转化。核心围绕五层受约束调用架构（system/task/context/format/post-process），实现严格的 JSON 结构化输出、TypeScript 运行时类型守卫（Type Guard）与容错重试闭环机制，将不确定的模型响应收束为稳定、可消费、可复用的软件模块。
-
-### Chapter 02: 工程底座（独立仓库 → [heiye-vn/autix](https://github.com/heiye-vn/autix)）
-
-- **描述**：用 pnpm workspaces + Turbo 搭建可扩展的 monorepo（clients / services / packages），跑通 Web ↔ Chat 服务 ↔ 共享包 ↔ Compose 的最小闭环。因其属于「产品工程」而非「能力练习」，已独立为专有开源项目仓库 [heiye-vn/autix](https://github.com/heiye-vn/autix) 持续演进，本目录保留完整设计笔记与落地思考 [note.md](./chapter02/note.md)。
-
-### Chapter 03: 上下文与记忆机制 (Memory & Context)
-
-- **描述**：探索短期对话窗口管理、长期向量检索记忆与上下文压缩摘要策略。
-
-### Chapter 04: 智能体规划与反思 (Planning & Reflection)
-
-- **描述**：探索 ReAct 范式、Plan-and-Solve、自我反思纠错与状态机流程控制。
-
-### Chapter 05: 多智能体协同 (Multi-Agent Workflows)
-
-- **描述**：探索角色分工、Agent Handoff、层级协作网络与多 Agent 冲突消解机制。
+> 本仓库专注于记录掘金专栏小册 [《AI Agents 开发实践》](https://juejin.cn/book/7626976407423303731)（作者：言萧凡）的学习过程、核心概念拆解、架构推演与个人复盘思考。配套的全栈工程实践代码，请前往独立仓库 [agentic-fullstack-monorepo](https://github.com/heiye-vn/agentic-fullstack-monorepo)。
 
 ---
 
-## 技术栈与基础设施
+## 🏗️ 双仓库协作架构
 
-- **运行时环境**：Node.js >= 18
-- **包管理工具**：[pnpm](https://pnpm.io/)
-- **开发语言**：TypeScript + [tsx](https://github.com/privatenumber/tsx) (原生免编译即时执行)
-- **模型接入**：[OpenAI SDK](https://github.com/openai/openai-node)（兼容阿里百炼 DashScope、OpenAI 及三方中转网关）
+| 仓库                                    | 定位               | 内容形态                                                     | 关联地址                                                                                      |
+| :-------------------------------------- | :----------------- | :----------------------------------------------------------- | :-------------------------------------------------------------------------------------------- |
+| **ai-agent-engineering-notes** (本仓库) | **知识沉淀与复盘** | 教程原文备份、各章节精读笔记 (`note.md`)、架构思考           | [heiye-vn/ai-agent-engineering-notes](https://github.com/heiye-vn/ai-agent-engineering-notes) |
+| **agentic-fullstack-monorepo**          | **产品工程落地**   | 全栈工程底座到智能体落地（Next.js + NestJS + Docker + LangChain），按章节分支演进 | [heiye-vn/agentic-fullstack-monorepo](https://github.com/heiye-vn/agentic-fullstack-monorepo) |
 
----
+### 📌 工程分支映射指南
 
-## 快速开始
-
-### 1. 克隆与安装依赖
-
-进入对应章节目录（例如 `chapter01`）安装依赖：
-
-```bash
-cd chapter01
-pnpm install
-```
-
-### 2. 环境变量配置
-
-复制环境变量示例文件并配置您的 API Key：
-
-```bash
-cp .env.example .env
-```
-
-编辑 `.env` 文件，填入模型服务凭证：
-
-```env
-# 阿里百炼模型配置
-BAILIAN_API_KEY=sk-xxxxxx
-BAILIAN_BASE_URL=https://dashscope.aliyuncs.com/compatible-mode/v1
-```
-
-### 3. 运行演练
-
-以第一章为例，运行入口脚本测试需求分析智能体：
-
-```bash
-pnpm dev
-```
+| 分支名 | 对应章节 | 说明 |
+| :----- | :------- | :--- |
+| [`chapter-01-monorepo-setup`](https://github.com/heiye-vn/agentic-fullstack-monorepo/tree/chapter-01-monorepo-setup) | Chapter 02 底座篇 | pnpm workspace + Turbo monorepo 基础底座搭建与前后端联通 |
+| [`chapter-02-user-system`](https://github.com/heiye-vn/agentic-fullstack-monorepo/tree/chapter-02-user-system) | Chapter 02 AI 接管篇 | PostgreSQL 基础设施扩展与 user-system 用户系统 |
+| [`chapter-03-first-chain`](https://github.com/heiye-vn/agentic-fullstack-monorepo/tree/chapter-03-first-chain) | Chapter 03 | LangChain 工具绑定、自动工具循环与第一条服务端能力链路 |
+| [`main`](https://github.com/heiye-vn/agentic-fullstack-monorepo/tree/main) | - | 最新主线整合分支 |
 
 ---
 
-## 工程规范与安全守则
+## 📑 教程与笔记
 
-1. **密钥保护**：所有 API Key 与私密配置必须通过 `.env` 管理，严禁提交至版本控制系统。
-2. **契约先行**：所有涉及结构化交互的能力模块，必须具备明确的 TypeScript 接口契约与运行时校验。
-3. **安全失败 (Fail-Safe)**：提示词与编排逻辑必须明确安全边界，遇到不确定输入时要求澄清而非幻觉臆测。
+- **[`tutorial/`](./tutorial/)**：教程章节目录，收录各章节的教程原文备份。
+- **`chapter01/` ~ `chapter0N/`**：各章节的个人精读与复盘笔记（`note.md`）。
+
+---
+
+## 🧩 智能体技术演进全景图
+
+根据小册梳理的智能体能力演进阶梯：
+
+```mermaid
+flowchart LR
+    A["受约束 Prompt / JSON"] --> B["流程编排 (LangChain)"]
+    B --> C["工具执行 (Tool Calling / ReAct)"]
+    C --> D["外部标准化 (MCP) & 经验复用 (Skills)"]
+    D --> E["多智能体协作 (Subagents / Handoffs)"]
+    E --> F["生产落地 (Tracing & Evals)"]
+```
+
+- **Prompt / Schema**：解决模型输出的可控性与结构化确定性
+- **LangChain / 编排**：解决流程串联与上下文链路传递
+- **Tool Calling**：解决模型突破信息边界、执行具体操作的能力
+- **MCP & Skills**：解决外部系统接入的标准化与团队沉淀经验的复用
+- **Multi-Agent**：解决复杂长链路任务下的上下文膨胀与职责分工
+- **Tracing / Evals**：解决上线必须面对的链路可追溯、质量评估与成本控制
+
+---
+
+## 🔗 参考与致谢
+
+- **参考课程**：掘金专栏小册 [《AI Agents 开发实践》](https://juejin.cn/book/7626976407423303731) （作者：言萧凡_CookieBoty）
+- **配套工程**：[heiye-vn/agentic-fullstack-monorepo](https://github.com/heiye-vn/agentic-fullstack-monorepo) (基于当前学习演进落地的全栈 Monorepo 实践项目，多分支对应各阶段交付)
